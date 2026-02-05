@@ -94,7 +94,7 @@ newgrp docker
 
 ---
 
-## ✅ PHASE 1 — Create Azure Container Registry (ACR)
+### PHASE 1 — Create Azure Container Registry (ACR)
 
 Create ACR:
 
@@ -110,7 +110,7 @@ az acr login --name acragentt
 
 ---
 
-## ✅ PHASE 2 — Project Structure
+### PHASE 2 — Project Structure
 
 ```
 agentic-docker-poc/
@@ -124,7 +124,7 @@ agentic-docker-poc/
 
 ---
 
-## ✅ PHASE 3 — MCP Tool Server (FastAPI)
+### PHASE 3 — MCP Tool Server (FastAPI)
 
 ### Step 3.1 Setup
 
@@ -150,9 +150,9 @@ curl http://localhost:9000/mcp/tools
 
 ---
 
-## ✅ PHASE 4 — Agent-1 (Planner Agent)
+### PHASE 4 — Agent-1 (Planner Agent)
 
-### Step 4.1 Setup
+#### Step 4.1 Setup
 
 ```bash
 cd dockerfile-agent
@@ -162,7 +162,7 @@ source venv/bin/activate
 pip install openai azure-identity python-dotenv
 ```
 
-### Step 4.2 Azure OpenAI Variables
+#### Step 4.2 Azure OpenAI Variables
 
 ```bash
 export AZURE_OPENAI_API_KEY="YOUR_KEY"
@@ -170,7 +170,7 @@ export AZURE_OPENAI_ENDPOINT="https://YOUR-RESOURCE.openai.azure.com/"
 export AZURE_OPENAI_DEPLOYMENT="agent-gpt4o"
 ```
 
-### Step 4.3 Run Planner
+#### Step 4.3 Run Planner
 
 ```bash
 python app.py
@@ -184,9 +184,9 @@ shared/Dockerfile
 
 ---
 
-## ✅ PHASE 5 — Agent-2 (Executor Agent)
+### PHASE 5 — Agent-2 (Executor Agent)
 
-### Step 5.1 Setup
+#### Step 5.1 Setup
 
 ```bash
 cd build-push-agent
@@ -196,7 +196,7 @@ source venv/bin/activate
 pip install python-dotenv
 ```
 
-### Step 5.2 Set ACR Variables
+#### Step 5.2 Set ACR Variables
 
 ```bash
 export ACR_NAME=acragentt
@@ -204,7 +204,7 @@ export IMAGE_NAME=agent-runner
 export IMAGE_TAG=v1
 ```
 
-### Step 5.3 Run Executor
+#### Step 5.3 Run Executor
 
 ```bash
 python app.py
@@ -217,9 +217,9 @@ Expected:
 
 ---
 
-## ✅ PHASE 6 — AG-UI Layer (User Trigger)
+### PHASE 6 — AG-UI Layer (User Trigger)
 
-### Step 6.1 Setup
+#### Step 6.1 Setup
 
 ```bash
 cd ag-ui
@@ -229,7 +229,7 @@ source venv/bin/activate
 pip install fastapi uvicorn requests
 ```
 
-### Step 6.2 Run AG-UI
+#### Step 6.2 Run AG-UI
 
 ```bash
 uvicorn app:app --host 0.0.0.0 --port 7000
@@ -241,7 +241,7 @@ Swagger UI:
 http://<VM-IP>:7000/docs
 ```
 
-### Step 6.3 Trigger Workflow
+#### Step 6.3 Trigger Workflow
 
 POST `/run`
 
@@ -255,7 +255,7 @@ POST `/run`
 
 ---
 
-## ✅ PHASE 7 — OpenTelemetry Distributed Tracing
+### PHASE 7 — OpenTelemetry Distributed Tracing
 
 ### Step 7.1 Install Dependencies
 
@@ -263,7 +263,7 @@ POST `/run`
 pip install  opentelemetry-api  opentelemetry-sdk  opentelemetry-instrumentation-fastapi  opentelemetry-instrumentation-requests  opentelemetry-exporter-otlp
 ```
 
-### Step 7.2 Run Jaeger
+#### Step 7.2 Run Jaeger
 
 ```bash
 docker run -d --name jaeger   -e COLLECTOR_OTLP_ENABLED=true   -p 16686:16686   -p 4318:4318   jaegertracing/all-in-one:latest
@@ -277,9 +277,9 @@ http://<VM-IP>:16686
 
 ---
 
-## ✅ PHASE 8 — Containerize Agents
+### PHASE 8 — Containerize Agents
 
-### Agent-2
+#### Agent-2
 
 ```bash
 docker build -t acragentt.azurecr.io/agent2-executor:v1 .
@@ -295,7 +295,7 @@ docker push acragentt.azurecr.io/agent1-planner:v1
 
 ---
 
-## ✅ PHASE 9 — Deploy on AKS
+### PHASE 9 — Deploy on AKS
 
 Attach ACR:
 
@@ -317,7 +317,7 @@ kubectl create namespace agentic
 
 ---
 
-## ✅ PHASE 10 — AKS YAML Deployments
+### PHASE 10 — AKS YAML Deployments
 
 ```bash
 kubectl apply -f jaeger.yaml
@@ -327,7 +327,7 @@ kubectl apply -f agent1.yaml
 
 ---
 
-## ✅ PHASE 11 — End-to-End Test on AKS
+### PHASE 11 — End-to-End Test on AKS
 
 Check Pods:
 
@@ -348,7 +348,7 @@ curl -X POST http://<AGUI-IP>:7000/run   -H "Content-Type: application/json"   -
 
 ---
 
-# ✅ Completed End-to-End
+## Completed End-to-End
 
 ✔ MCP Tool Server  
 ✔ Agent-1 Planner  
