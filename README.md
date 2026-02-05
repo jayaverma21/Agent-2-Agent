@@ -68,7 +68,7 @@ User → AG-UI Trigger Layer
 
 ---
 
-## ✅ PHASE 0 — VM Setup & Prerequisites
+### PHASE 0 — VM Setup & Prerequisites
 
 Run the following commands on your Linux VM:
 
